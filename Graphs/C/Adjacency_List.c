@@ -1,4 +1,4 @@
-/*adacency list in Undirected graph */
+/*adjacency list in Undirected graph */
 #include <stdio.h>
 #include <stdlib.h>
 
