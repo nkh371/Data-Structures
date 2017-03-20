@@ -1,4 +1,4 @@
-/*aracency list in Undirected graph */
+/*adacency list in Undirected graph */
 #include <stdio.h>
 #include <stdlib.h>
 
