@@ -1,4 +1,4 @@
-/*BFS using Adjacency list in Undirected graph */
+/*DFS using Adjacency list in Undirected graph */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -98,74 +98,73 @@ void sorted_add_edge(Graph *graph, int v1, int v2)
 	insertion_sorted(graph, v2, v1);
 }
 
-typedef struct queue
+typedef struct stack
 {
-	int data;
-	struct queue *next;
+	int top;
+	int *ar;
+}stack;
 
-}queue;
-
-void enqueue(queue **head, int data)
+void push(stack *s, int data)
 {
-	queue *new_node = (queue *)malloc(sizeof(queue));
-	new_node->data = data;
-	new_node->next = NULL;
-	if(*head == NULL)
-	{
-		*head = new_node;
-	}
-	else
-	{
-		queue *trav = *head;
-		while(trav->next != NULL)
-		{
-			trav = trav->next;
-		}
-		trav->next = new_node;
-	}
+	s->top++;
+	s->ar[s->top] = data;
+}
+void pop(stack *s)
+{
+	s->top--;
 }
 
-void dequeue(queue **head)
+void dfs_call(Graph *graph, int source, bool *visited)
 {
-	queue *trav = *head;
-	*head = (*head)->next;
-	free(trav);
-}
-
-void bfs(Graph *graph, int v)
-{
-	int source = 2;  /*can be changed according to requirement or can be taken as i/p from user*/
-	bool visited[v];
+	stack s;
+	s.top = -1;
+	int size = sizeof(visited) / sizeof(bool);
 	
-	/*Initializing each with false*/
-	int i;
-	for(i = 0; i < v; i++)
-		visited[i] = false;
+	s.ar = (int *)malloc(size * sizeof(int));
 	
-	queue *q = NULL;
-	enqueue(&q, source);
+	push(&s, source);
 	visited[source] = true;
+	printf("%d\t", source);
 	
-	while(q != NULL)
+	while(s.top != -1)
 	{
-		int x = q->data;
-		printf("%d\t", x);
-		dequeue(&q);
+		int x = s.ar[s.top];
 		Node *trav = graph->ar[x];
+		int c = 0;
+		
 		while(trav != NULL)
 		{
 			if(visited[trav->data] != true)
 			{
-				enqueue(&q, trav->data);
+				c = 1;
+				push(&s, trav->data);
 				visited[trav->data] = true;
+				printf("%d\t", trav->data);
+				break;
 			}
 			trav = trav->next;
 		}
+		
+		if(c != 1)
+			pop(&s);
 	}
+} 
 
+void dfs(Graph *graph, int v)
+{
+	bool visited[v];
+	/*Initializing whole array with false*/
+	int i;
+	for(i = 0; i < v; i++)
+		visited[i] = false;
+		
+	int source;
+	source = 2;         /*source can be changed according to requirement and should be less than or v*/
+	
+	dfs_call(graph, source, visited);
 }
 
-void print_list(Graph *graph,int v)
+void print_list(Graph *graph, int v)
 {
 	int i;
 	for(i = 0; i < v; i++)
@@ -197,13 +196,13 @@ int main(void)
 	sorted_add_edge(graph, 1, 2);
 	sorted_add_edge(graph, 2, 0);    
 	sorted_add_edge(graph, 2, 3); 
-	sorted_add_edge(graph, 2, 3);
+	sorted_add_edge(graph, 3, 3);
 	
 	printf("Graph is-->\n");
 	print_list(graph, v);
 	
-	printf("\nBFS traversal is--> ");
-	bfs(graph, v);
+	printf("\nDFS traversal is--> ");
+	dfs(graph, v);
 	
 	return 0;
 } 
