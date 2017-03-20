@@ -40,15 +40,15 @@ typedef struct stack
 
 }stack;
 
-void push(stack **s, int data)
+void push(stack *s, int data)
 {
-	((*s)->top)++;
-	(*s)->ar[(*s)->top] = data;
+	s->top++;
+	s->ar[s->top] = data;
 }
 
-void pop(stack **s)
+void pop(stack *s)
 {
-	((*s)->top)--;
+	s->top--;
 }
 
 void dfs(Graph *graph, int v)
@@ -62,17 +62,17 @@ void dfs(Graph *graph, int v)
 	int source;
 	source = 2;         /*source can be changed according to requirement and should be less than or v*/
 	
-	stack *s = (stack *)malloc(sizeof(stack));
-	s->top = -1;
-	s->ar = (int *)malloc(v * sizeof(int));
+	stack s;
+	s.top = -1;
+	s.ar = (int *)malloc(v * sizeof(int));
 	
 	push(&s, source);
 	visited[source] = true;
 	printf("%d\t", source);
 	
-	while(s->top != -1)
+	while(s.top != -1)
 	{
-		int x = s->ar[s->top];
+		int x = s.ar[s.top];
 		int i, c = 0;
 		for(i = 0; i < v; i++)
 		{
