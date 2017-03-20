@@ -84,8 +84,7 @@ void bfs(Graph *graph, int v)
 	
 	while(q != NULL)
 	{
-		queue *trav = q;
-		int x = trav->data;
+		int x = q->data;
 		printf("%d\t",x);
 		dequeue(&q);                        /*directly can't use trav->data, because it will be dequeued here, so no info left,leads to segmentation fault*/
 		
@@ -105,9 +104,24 @@ void bfs(Graph *graph, int v)
 	}	
 }
 
+void print_matrix(Graph *graph, size_t size)
+{
+	printf("2D Matrix is-->\n");
+	
+	int i,j;
+	for(i = 0; i < size; i++)
+	{
+		for(j = 0; j < size; j++)
+		{
+			printf("%d\t", graph->ar[i][j]);
+		}
+		printf("\n");
+	}
+}
+
 int main(void)
 {
-	int v = 6;
+	int v = 5;
 	
 	Graph *graph = create_graph(v);
 	
@@ -117,6 +131,9 @@ int main(void)
 	add_edge(graph, 3, 4);
 	add_edge(graph, 4, 0);  
 	
+	print_matrix(graph, v);
+	
+	printf("\nBFS traversal is-->");
 	bfs(graph, v);
 	
 	return 0;
