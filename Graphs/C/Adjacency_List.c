@@ -66,7 +66,7 @@ void add_edge(Graph *graph, int v1, int v2)
 	}
 }
 
-void print_matrix(Graph *graph, int v)
+void print_list(Graph *graph, int v)
 {
 	int i;
 	for(i = 0; i < v; i++)
@@ -99,7 +99,7 @@ int main(void)
 	add_edge(graph, 3, 4);
 	add_edge(graph, 4, 0);  
 	/* node 5 has no links */
-	print_matrix(graph, v);
+	print_list(graph, v);
 	
 	return 0;
 }
