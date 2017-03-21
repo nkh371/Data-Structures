@@ -129,7 +129,7 @@ bool detect_cycle(Graph *g, int source, int v)
 	/*Initializing each with false*/
 	int i;
 	for(i = 0; i < v; i++)
-		visited[i] = true;
+		visited[i] = false;
 	
 	stack s;
 	s.top = -1;
@@ -146,9 +146,11 @@ bool detect_cycle(Graph *g, int source, int v)
 		
 		while(trav != NULL)
 		{
-			if(visited[trav->data] == true)
-				return true;
-			else
+			int i = 0;
+			for(i = 0; i <= s.top; i++)
+				if(trav->data == s.ar[i])
+					return true;
+			if(visited[trav->data] != true)
 			{
 				c = 1;
 				push(&s, trav->data);
@@ -159,7 +161,7 @@ bool detect_cycle(Graph *g, int source, int v)
 		
 		if(c != 1)
 			pop(&s);
-		}
+	}
 	return false;
 }
 
@@ -169,11 +171,11 @@ int main(void)
 	Graph *graph = create_graph(v);
 	
 	add_edge(graph, 0, 1);
+	add_edge(graph, 0, 2);
 	add_edge(graph, 1, 2);
-	//add_edge(graph, 1, 2);
-	//add_edge(graph, 2, 0);    
+	add_edge(graph, 2, 0);    
 	add_edge(graph, 2, 3); 
-	//add_edge(graph, 3, 3);
+	add_edge(graph, 3, 3);
 	
 	printf("Graph is-->\n");
 	print_list(graph, v);
@@ -184,7 +186,7 @@ int main(void)
 	if(b == true)
 		printf("\nGraph contains cycle\n");
 	else
-		printf("Graph does not contain any cycle\n");
+		printf("\nGraph does not contain any cycle\n");
 	
 	return 0;
 }
