@@ -33,18 +33,18 @@ void add_edge(Graph *graph, int v1, int v2)
 	graph->ar[v1][v2] = graph->ar[v2][v1] = true;   /* if Graph is directed, then graph->ar[v1][v2] = true */
 }
 
-void dfs_call(Graph *graph, int source, bool *visited)
+void dfs_call(Graph *graph, int source, bool *visited, int size)
 {
 	printf("%d\t", source);
 	visited[source] = true;
 	
-	size_t size = sizeof(visited) / sizeof(bool);
+	//size_t size = sizeof(visited) / sizeof(bool);
 	
 	int i;
 	for(i = 0; i < size; i++)
 		if(graph->ar[source][i] == true)
 			if(visited[i] != true)
-				dfs_call(graph, i, visited);
+				dfs_call(graph, i, visited, size);
 }
 
 void dfs(Graph *graph, int v)
@@ -58,10 +58,10 @@ void dfs(Graph *graph, int v)
 	int source;
 	source = 2;         /*source can be changed according to requirement and should be less than or v*/
 	
-	dfs_call(graph, source, visited);
+	dfs_call(graph, source, visited ,v);
 }
 
-void print_matrix(Graph *graph, size_t size)
+void print_matrix(Graph *graph, int size)
 {
 	printf("2D Matrix is-->\n");
 	
@@ -87,8 +87,7 @@ int main(void)
 	add_edge(graph, 1, 2); 
 	add_edge(graph, 2, 0);
 	add_edge(graph, 2, 3);  
-	add_edge(graph, 3, 3);  
-	
+	add_edge(graph, 3, 3);
 	print_matrix(graph, v);
 	
 	printf("\nDFS traversal is-->");

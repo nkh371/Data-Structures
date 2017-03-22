@@ -33,7 +33,7 @@ void add_edge(Graph *graph, int v1, int v2)
 	graph->ar[v1][v2] = true;
 }
 
-void print_matrix(Graph *graph, size_t size)
+void print_matrix(Graph *graph, int size)
 {
 	printf("2D Matrix is-->\n");
 	

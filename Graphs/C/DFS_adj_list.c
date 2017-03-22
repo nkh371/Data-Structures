@@ -114,11 +114,10 @@ void pop(stack *s)
 	s->top--;
 }
 
-void dfs_call(Graph *graph, int source, bool *visited)
+void dfs_call(Graph *graph, int source, bool *visited, int size)
 {
 	stack s;
 	s.top = -1;
-	int size = sizeof(visited) / sizeof(bool);
 	
 	s.ar = (int *)malloc(size * sizeof(int));
 	
@@ -161,7 +160,7 @@ void dfs(Graph *graph, int v)
 	int source;
 	source = 2;         /*source can be changed according to requirement and should be less than or v*/
 	
-	dfs_call(graph, source, visited);
+	dfs_call(graph, source, visited, v);
 }
 
 void print_list(Graph *graph, int v)
