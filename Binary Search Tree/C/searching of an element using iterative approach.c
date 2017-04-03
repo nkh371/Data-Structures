@@ -35,19 +35,26 @@ void create(node **head,int n)
 		create(&trav->right,n);
 }
 
-bool search(node *head,int key)
+bool search(node *root, int key)
 {
-	while(head->left != NULL ||head->right != NULL)
+	if(root == NULL)
+		return false;
+	else
 	{
-		if(key == head->data)
-			return true;
-		else if(key <= head->data)
-			head = head->left;
-		else
-			head = head->right;
-	}
+		do
+		{
+			if(root->data == key)
+				return true;
+			else if(key < root->data)
+				root = root->left;
+			else
+				root = root->right;
+		} while(root != NULL);
+	}	
+	
 	return false;
 }
+
 
 void inorder(node *head)
 {
