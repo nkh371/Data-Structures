@@ -34,6 +34,9 @@ void createNode(tree **root, int data)
 
 void preorder(tree *root)
 {
+	if(root == NULL)
+		return;
+		
 	stack<tree *> mystack;
 	mystack.push(root);
 	
