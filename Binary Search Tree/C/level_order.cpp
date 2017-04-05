@@ -34,6 +34,9 @@ void createNode(tree **root, int data)
 
 void levelorder(tree *root)
 {
+	if(root == NULL)
+		return;
+	
 	queue<tree *> q;
 	q.push(root);
 	while(!q.empty())
