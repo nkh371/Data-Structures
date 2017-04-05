@@ -1,61 +1,55 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <malloc.h>
 
-typedef struct node
+typedef struct tree
 {
 	int data;
-	struct node *left;
-	struct node *right;
+	struct tree *left, *right;
 
-}node;
+}tree;
 
-node * newNode(int data)
+tree* newNode(int data)
 {
-	node *new_node = NULL;
-	new_node = (node *)malloc(sizeof(node));
-	new_node->data = data;
-	new_node->left = NULL;
-	new_node->right = NULL;	
-	return new_node;
-}
-
-void create(node **head,int n)
-{
-	node *trav = *head;
-	if(*head == NULL)
-	{
-		*head = newNode(n);
-		return;
-	}
+	tree *nw = NULL;
 	
-	if(n <= trav->data)
-		create(&trav->left,n);
+	nw = (tree *)malloc(sizeof(tree));
+	nw->data = data;
+	nw->left = nw->right = NULL;
+	
+	return nw;
+}
+
+void createNode(tree **root, int data)
+{
+	if(*root == NULL)
+		*root = newNode(data);
+	else if(data <= (*root)->data)
+		createNode(&(*root)->left, data);
 	else
-		create(&trav->right,n);
+		createNode(&(*root)->right, data);
 }
 
-void inorder(node *head)
+void inorder(tree *root)
 {
-	if(head == NULL)
+	if(root == NULL)
 		return;
-	inorder(head->left);
-	printf("%d\t",head->data);
-	inorder(head->right);
+	inorder(root->left);
+	printf("%d ", root->data);
+	inorder(root->right);
 }
-
-int main()
+ 
+int main(void)
 {
-	node *tree = NULL;
-	create(&tree,20);
-	create(&tree,15);
-	create(&tree,25);
-	create(&tree,12);
-	create(&tree,18);
-	create(&tree,22);
-    create(&tree,28);
-
-	printf("\ninorder is-->\t");
-	inorder(tree);
+	tree *t1 = NULL;
+	createNode(&t1, 20);
+	createNode(&t1, 15);
+	createNode(&t1, 25);
+	createNode(&t1, 12);
+	createNode(&t1, 18);
+	createNode(&t1, 22);
+	createNode(&t1, 28);
+	
+	inorder(t1);
 	
 	return 0;
 }
