@@ -1,61 +1,55 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <malloc.h>
 
-typedef struct node
+typedef struct tree
 {
 	int data;
-	struct node *left;
-	struct node *right;
+	struct tree *left, *right;
 
-}node;
+}tree;
 
-node * newNode(int data)
+tree* newNode(int data)
 {
-	node *new_node = NULL;
-	new_node = (node *)malloc(sizeof(node));
-	new_node->data = data;
-	new_node->left = NULL;
-	new_node->right = NULL;	
-	return new_node;
+	tree *nw = NULL;
+	
+	nw = (tree *)malloc(sizeof(tree));
+	nw->data = data;
+	nw->left = nw->right = NULL;
+	
+	return nw;
 }
 
-void create(node **head,int n)
+void createNode(tree **root, int data)
 {
-	node *trav = *head;
-	if(*head == NULL)
-	{
-		*head = newNode(n);
-		return;
-	}
-	
-	if(n <= trav->data)
-		create(&trav->left,n);
+	if(*root == NULL)
+		*root = newNode(data);
+	else if(data <= (*root)->data)
+		createNode(&(*root)->left, data);
 	else
-		create(&trav->right,n);
+		createNode(&(*root)->right, data);
 }
 
-void preorder(node *head)
+void preorder(tree *root)
 {
-	if(head == NULL)
+	if(root == NULL)
 		return;
-	printf("%d\t",head->data);
-	preorder(head->left);
-	preorder(head->right);
+	printf("%d ", root->data);
+	preorder(root->left);
+	preorder(root->right);
 }
-
-int main()
+ 
+int main(void)
 {
-	node *tree = NULL;
-	create(&tree,20);
-	create(&tree,15);
-	create(&tree,25);
-	create(&tree,12);
-	create(&tree,18);
-	create(&tree,22);
-    create(&tree,28);
+	tree *t1 = NULL;
+	createNode(&t1, 20);
+	createNode(&t1, 15);
+	createNode(&t1, 25);
+	createNode(&t1, 12);
+	createNode(&t1, 18);
+	createNode(&t1, 22);
+	createNode(&t1, 28);
 	
-	printf("preorder is-->  ");
-	preorder(tree);
-  
+	preorder(t1);
+	
 	return 0;
 }
