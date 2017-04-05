@@ -1,91 +1,83 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <malloc.h>
 #include <stdbool.h>
 
-typedef struct node
+typedef struct tree
 {
 	int data;
-	struct node *left;
-	struct node *right;
+	struct tree *left, *right;
 
-}node;
+}tree;
 
-node * newNode(int data)
+tree* newNode(int data)
 {
-	node *new_node = NULL;
-	new_node = (node *)malloc(sizeof(node));
-	new_node->data = data;
-	new_node->left = NULL;
-	new_node->right = NULL;	
-	return new_node;
-}
-
-void create(node **head,int n)
-{
-	node *trav = *head;
-	if(*head == NULL)
-	{
-		*head = newNode(n);
-		return;
-	}
+	tree *nw = NULL;
 	
-	if(n <= trav->data)
-		create(&trav->left,n);
-	else
-		create(&trav->right,n);
+	nw = (tree *)malloc(sizeof(tree));
+	nw->data = data;
+	nw->left = nw->right = NULL;
+	
+	return nw;
 }
 
-bool search(node *root, int key)
+void createNode(tree **root, int data)
+{
+	if(*root == NULL)
+		*root = newNode(data);
+	else if(data <= (*root)->data)
+		createNode(&(*root)->left, data);
+	else
+		createNode(&(*root)->right, data);
+}
+
+void inorder(tree *root)
 {
 	if(root == NULL)
-		return false;
-	else
+		return;
+	inorder(root->left);
+	printf("%d ", root->data);
+	inorder(root->right);
+}
+ 
+bool search(tree *root, int key)
+{
+	do
 	{
-		do
-		{
-			if(root->data == key)
-				return true;
-			else if(key < root->data)
-				root = root->left;
-			else
-				root = root->right;
-		} while(root != NULL);
-	}	
+		if(root->data == key)
+			return true;
+		else if(key < root->data)
+			root = root->left;
+		else
+			root = root->right;
+	
+	} while(root != NULL);
 	
 	return false;
 }
-
-
-void inorder(node *head)
+ 
+int main(void)
 {
-	if(head == NULL)
-		return;
-	inorder(head->left);
-	printf("%d\t",head->data);
-	inorder(head->right);
-}
-
-int main()
-{
-	node *tree = NULL;
-	create(&tree,20);
-	create(&tree,15);
-	create(&tree,25);
-	create(&tree,12);
-	create(&tree,18);
-	create(&tree,22);
-    create(&tree,28);
+	tree *t1 = NULL;
+	createNode(&t1, 20);
+	createNode(&t1, 15);
+	createNode(&t1, 25);
+	createNode(&t1, 12);
+	createNode(&t1, 18);
+	createNode(&t1, 22);
+	createNode(&t1, 28);
 	
-	inorder(tree);
+	inorder(t1);
 	
 	int key;
 	printf("\nenter key-->");
-	scanf("%d",&key);
-	bool x = search(tree,key);
-	if(x == true)
-		printf("item found\n");
+	scanf("%d", &key);
+	
+	bool b = search(t1, key);
+	
+	if(b == true)
+		printf("\n%d is present\n", key);
 	else
-		printf("item not found\n");
-		
+		printf("\n%d is not present\n", key);
+	
 	return 0;
 }
