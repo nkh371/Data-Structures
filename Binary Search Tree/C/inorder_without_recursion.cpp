@@ -39,23 +39,22 @@ void inorder(tree *root)
 		
 	stack<tree *> mystack;
 	mystack.push(root);
-	tree *temp = root;
 	while(!mystack.empty())
 	{
-		if(temp->left != NULL)
+		if(root->left != NULL)
 		{
-			mystack.push(temp->left);
-			temp = temp->left;
+			mystack.push(root->left);
+			root = root->left;
 			continue;
 		}
-		temp = mystack.top();
-		printf("%d ", temp->data);
+		root = mystack.top();
+		printf("%d ", root->data);
 		mystack.pop();
 		
-		if(temp->right != NULL)
+		if(root->right != NULL)
 		{
-			mystack.push(temp->right);
-			temp = temp->right;
+			mystack.push(root->right);
+			root = root->right;
 			continue;
 		}
 	}
