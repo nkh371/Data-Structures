@@ -1,4 +1,5 @@
 /*Assume graph to be Directed*/
+/*Topological Sort is used by OS, to schedule the tasks, which depends on other*/
 #include <stdio.h>
 #include <iostream>
 #include <list>
