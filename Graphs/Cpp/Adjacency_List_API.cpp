@@ -24,7 +24,8 @@ Graph* create_graph(int v)
 void add_edge(Graph *g, int m, int n)
 {
 	g->adj[m].push_back(n);
-	g->adj[n].push_back(m);
+	if(m != n)                    //(2,2) should not be added twice
+	    g->adj[n].push_back(m);
 }
 
 void print_list(Graph *g, int v)
