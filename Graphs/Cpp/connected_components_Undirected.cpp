@@ -81,21 +81,29 @@ void Connected(Graph *g)
 		}
 	}
 	
-	int max = 0, count = 0, max_length = 0;
+	int max = 0;
 	for(i = 0; i < g->v; i++)
 	{	
-		//printf("%d ", cc[i]);
-		if(max == cc[i])
-			count++;
-		else
-		{
-			if(max_length < count)
-				max_length = count;
-			count = 0;
-		}
 		if(max < cc[i])
 			max = cc[i];
+	}
+	
+	int ar[max +1];
+	
+	for(i = 0; i < max + 1; i++)
+		ar[i] = 0;
 		
+	for(i = 0; i < g->v; i++)
+	{	
+		ar[cc[i]]++;
+	}
+	
+	int max_length = 0;
+	
+	for(i = 0; i < max + 1; i++)
+	{	
+		if(max_length < ar[i])
+			max_length = ar[i];
 	}
 	
 	printf("\n\nNo. of components is--> %d", max + 1);   // max + 1, coz start from 0.
@@ -105,9 +113,10 @@ void Connected(Graph *g)
 
 int main(void)
 {
-	int v = 9;
+	int v = 10;
 	Graph *g = create_graph(v);
 	add_edge(g, 0, 1);
+	add_edge(g, 0, 9);
 	add_edge(g, 1, 2);
 	add_edge(g, 1, 3);
 	add_edge(g, 4, 5);
