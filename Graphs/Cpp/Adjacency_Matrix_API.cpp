@@ -27,7 +27,8 @@ Graph* create_graph(int v)
 void add_edge(Graph *g, int m, int n)
 {
 	g->adj[m][n] = true;
-	g->adj[n][m] = true;
+	if(m != n)                    //(2,2) should not be added twice
+	    g->adj[n][m] = true;
 }
 
 void print_array(Graph *g, int v)
