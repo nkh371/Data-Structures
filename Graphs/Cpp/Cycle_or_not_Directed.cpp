@@ -1,4 +1,4 @@
-/*Assume Graph to be cyclic*/
+/*Assume Graph to be Directed*/
 #include <stdio.h>
 #include <iostream>
 #include <list>
