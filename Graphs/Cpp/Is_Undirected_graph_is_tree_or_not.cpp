@@ -2,7 +2,8 @@
 
 /*A Graph will be tree, when
 1. No cycle is there 
-2. All nodes are connected*/
+2. All nodes are connected
+3.No. of edges in a graph is exactly one less than the no. of vertices, so that no cycle formed. But vice versa is not true*/
 
 #include <stdio.h>
 #include <iostream>
