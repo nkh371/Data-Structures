@@ -24,22 +24,23 @@ Tree *new_node(int data)
 Tree* add_edge(Tree *head, int data)
 {
 	if(head == NULL)
-		head = new_node(data);
-	else
+		return new_node(data);
+	
+	Tree *trav = head, *prev = NULL;
+	
+	while(trav != NULL)
 	{
-		Tree *trav = head;
-		while(trav->left != NULL && trav->right != NULL)
-		{
-			if(data <= trav->data)
-				trav = trav->left;
-			else
-				trav = trav->right;
-		}
-		if(data <= trav->data)
-			trav->left = new_node(data);
+		prev = trav;
+		if(data <= trav->data) 
+			trav = trav->left;
 		else
-			trav->right = new_node(data);
+			trav = trav->right;
 	}
+	if(data <= prev->data)
+		prev->left = new_node(data);
+	else
+		prev->right = new_node(data);
+	
 	return head;
 }	
 
@@ -58,11 +59,13 @@ int main(void)
 	Tree *t1 = NULL;
 	t1 = add_edge(t1, 20);
 	add_edge(t1, 15);
+	add_edge(t1, 5);
 	add_edge(t1, 25);
 	add_edge(t1, 12);
 	add_edge(t1, 18);
 	add_edge(t1, 22);
 	add_edge(t1, 28);
+	
 	
 	inorder(t1);
 	
