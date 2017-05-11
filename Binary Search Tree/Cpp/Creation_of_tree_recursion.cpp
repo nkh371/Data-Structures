@@ -11,17 +11,6 @@ typedef struct Tree
 	struct Tree *right;
 }Tree;
 
-
-void inorder(Tree *root)
-{
-	if(root == NULL)
-		return;
-	
-	inorder(root->left);
-	printf("%d ", root->data);
-	inorder(root->right);
-}
-
 Tree *new_node(int data)
 {
 	Tree *nw = (Tree *)malloc(sizeof(Tree));
@@ -42,6 +31,16 @@ Tree* add_edge(Tree *head, int data)
 	
 	return head;
 }	
+
+void inorder(Tree *root)
+{
+	if(root == NULL)
+		return;
+	
+	inorder(root->left);
+	printf("%d ", root->data);
+	inorder(root->right);
+}
 
 int main(void)
 {
