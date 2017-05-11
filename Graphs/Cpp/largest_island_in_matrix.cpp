@@ -17,11 +17,11 @@ bool condition(int adj[][cols], bool visited[][cols], int r, int c)
 void DFS_fn(int adj[][cols], bool visited[][cols], int r, int c, int &count)
 {
 	/*Initializing neighbours*/
-	static int nrows[] = {-1, -1, -1, 0, 0, 0, 1, 1, 1};
-	static int ncols[] = {-1, 0, 1, -1, 0, 1, -1, 0, 1};
+	static int nrows[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+	static int ncols[] = {-1, 0, 1, -1, 1, -1, 0, 1};
 	
 	int i;
-	for(i = 0; i <= 8; i++)
+	for(i = 0; i < 8; i++)
 	{
 		int nw_r = r + nrows[i];
 		int nw_c = c + ncols[i]; 
@@ -70,9 +70,9 @@ void DFS(int adj[][cols])
 int main(void)
 {
 	int ar[][cols] = { {1, 1, 0, 1},
-					   {0, 1, 1, 0},
-					   {1, 0, 1, 0},
-					   {1, 1, 0, 1} };
+			   {0, 1, 1, 0},
+         		   {1, 0, 1, 0},
+			   {1, 1, 0, 1} };
 					   
 	DFS(ar);
 					   
