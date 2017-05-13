@@ -81,6 +81,7 @@ void Connected(Graph *g)
 		}
 	}
 	
+	/*c is the maximum no. of components*/
 	int ar[c];
 	
 	for(i = 0; i < c; i++)
