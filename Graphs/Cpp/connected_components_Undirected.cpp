@@ -81,16 +81,9 @@ void Connected(Graph *g)
 		}
 	}
 	
-	int max = 0;
-	for(i = 0; i < g->v; i++)
-	{	
-		if(max < cc[i])
-			max = cc[i];
-	}
+	int ar[c];
 	
-	int ar[max +1];
-	
-	for(i = 0; i < max + 1; i++)
+	for(i = 0; i < c; i++)
 		ar[i] = 0;
 		
 	for(i = 0; i < g->v; i++)
@@ -100,14 +93,15 @@ void Connected(Graph *g)
 	
 	int max_length = 0;
 	
-	for(i = 0; i < max + 1; i++)
+	for(i = 0; i < c; i++)
 	{	
 		if(max_length < ar[i])
 			max_length = ar[i];
 	}
 	
-	printf("\n\nNo. of components is--> %d", max + 1);   // max + 1, coz start from 0.
-	printf("\nLargest component is of length--> %d", max_length);
+	printf("\n\nNo. of components is--> %d", c);  
+	printf("\nLargest component is of length--> %d", max_length);//it can be find above in fn. as well, by taking counter and increment it, finally comparing.
+	
 	 
 }
 
